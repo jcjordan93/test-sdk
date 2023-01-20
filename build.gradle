@@ -1,9 +1,11 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
@@ -12,7 +14,6 @@ dependencies {
 
     implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.14'
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
-    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
     implementation "com.google.guava:guava:31.0.1-jre"
     implementation "ch.qos.logback:logback-classic:1.2.11"
 
@@ -21,3 +22,43 @@ dependencies {
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.5.1'
 
 }
+
+publishing {
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId = "org.rebid"
+                artifactId = "insights-sdk"
+                version = "1.0-SNAPSHOT"
+                from components.java
+            }
+        }
+        repositories {
+            maven {
+                url "https://maven.pkg.jetbrains.space/jcjordan93/p/main/insights-sdk"
+                credentials {
+                    username = spaceUsername
+                    password = spacePassword
+                }
+            }
+        }
+    }
+}
+
+//publishing {
+//    repositories {
+//        maven {
+//            name = "GitHubPackages"
+//            url = uri("https://maven.pkg.github.com/jcjordan93/dev-insights-SDK")
+//            credentials {
+//                username = 'jcjordan93'
+//                password = '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'
+//            }
+//        }
+//    }
+//    publications {
+//        gpr(MavenPublication) {
+//            from(components.java)
+//        }
+//    }
+//}
