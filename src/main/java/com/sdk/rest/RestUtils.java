@@ -20,7 +20,6 @@ public class RestUtils {
         try {
             String url = String.format(BASE_URL, eventType, sourceId);
             final HttpPost httpPost = new HttpPost(url);
-
             final String json = new Gson().toJson(jsonObject);
             final StringEntity entity = new StringEntity(json);
             httpPost.setEntity(entity);
